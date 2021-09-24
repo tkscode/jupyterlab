@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  jupyter:
+    build:
+      context: jupyter
+      dockerfile: Dockerfile.gpu
+    image: jupyterlab:gpu-latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            # GPU設定
+            - driver: nvidia
+              count: all
+              capabilities: [gpu] # gpuを指定するとnvidia-smiとCUDAが利用できる

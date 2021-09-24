@@ -1,0 +1,84 @@
+FROM nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04
+
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ARG NO_PROXY
+ARG http_proxy
+ARG https_proxy
+ARG no_proxy
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV JUPYTER_ENABLE_LAB=yes
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=all
+
+RUN set -ex \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        curl \
+        fonts-noto-cjk \
+        git \
+        gosu \
+        libbz2-dev \
+        libffi-dev \
+        liblzma-dev \
+        libncurses5-dev \
+        libncursesw5-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        libxml2-dev \
+        libxmlsec1-dev \
+        llvm \
+        make \
+        python-openssl \
+        tk-dev \
+        wget \
+        xz-utils \
+        zlib1g-dev \
+    && rm -rf /var/cache/apt
+
+ENV PYENV_ROOT=/opt/.pyenv
+ENV PATH=$PYENV_ROOT/bin:$PATH
+
+ARG PYTHON_VERSION
+
+RUN set -ex \
+    && git clone --depth 1 https://github.com/pyenv/pyenv.git /opt/.pyenv \
+    && eval "$(pyenv init --path)" \
+    && PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install $PYTHON_VERSION \
+    && pyenv global $PYTHON_VERSION \
+    && pip install --no-cache-dir -U pip setuptools \
+    && rm -rf ~/.cache/
+
+COPY requirements.common.txt requirements.gpu.txt /tmp/
+
+RUN set -ex \
+    && eval "$(pyenv init --path)" \
+    && pip install --no-cache-dir \
+        -r /tmp/requirements.common.txt \
+        -r /tmp/requirements.gpu.txt \
+    && rm -rf ~/.cache/
+
+RUN set -ex \
+    && eval "$(pyenv init --path)" \
+    && git clone https://github.com/facebookresearch/fastText.git /opt/fastText \
+    && cd /opt/fastText \
+    && make \
+    && pip install --no-cache-dir . \
+    && rm -rf ~/.cache/
+
+RUN set -ex \
+    && cd $PYENV_ROOT/versions/$PYTHON_VERSION/lib/python${PYTHON_VERSION%.*}/site-packages/matplotlib/mpl-data/ \
+    && sed -i -e 's/#font.family:  sans-serif/font.family:  Noto Sans CJK JP/' matplotlibrc
+
+COPY material/entrypoint.sh /entrypoint.sh
+COPY material/start.sh /start.sh
+COPY material/jupyter_lab_config.py /jupyter_lab_config.py
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["/start.sh"]

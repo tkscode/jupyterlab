@@ -1,0 +1,55 @@
+ARG PYTHON_VERSION
+
+FROM python:$PYTHON_VERSION-slim-buster
+
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ARG NO_PROXY
+ARG http_proxy
+ARG https_proxy
+ARG no_proxy
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV JUPYTER_ENABLE_LAB=yes
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+
+RUN set -ex \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        curl \
+        fonts-noto-cjk \
+        git \
+        gosu \
+        make \
+        wget \
+    && rm -rf /var/cache/apt
+
+COPY requirements.common.txt requirements.cpu.txt /tmp/
+
+RUN set -ex \
+    && pip install --no-cache-dir -U pip setuptools \
+    && pip install --no-cache-dir \
+        -r /tmp/requirements.common.txt \
+        -r /tmp/requirements.cpu.txt \
+    && rm -rf ~/.cache/
+
+RUN set -ex \
+    && git clone https://github.com/facebookresearch/fastText.git /opt/fastText \
+    && cd /opt/fastText \
+    && make \
+    && pip install --no-cache-dir . \
+    && rm -rf ~/.cache/
+
+RUN set -ex \
+    && cd /usr/local/lib/python${PYTHON_VERSION%.*}/site-packages/matplotlib/mpl-data/ \
+    && sed -i -e 's/#font.family:  sans-serif/font.family:  Noto Sans CJK JP/' matplotlibrc
+
+COPY material/entrypoint.sh /entrypoint.sh
+COPY material/start.sh /start.sh
+COPY material/jupyter_lab_config.py /jupyter_lab_config.py
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["/start.sh"]
