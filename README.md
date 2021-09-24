@@ -34,7 +34,7 @@ $ docker-compose -f docker-compose.yml -f docker-compose.gpu.yml up -d
 ```
 
 + JupyterLab: `http://<hostname>:18080/lab`
-+ MLFlow: `http://<hostname>:15000
++ MLFlow: `http://<hostname>:15000`
 
 ### Stop
 
