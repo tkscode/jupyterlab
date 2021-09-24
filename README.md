@@ -12,12 +12,47 @@ MLFlowを使った実験管理も可能
 + nvidia-docker2（GPUを利用する場合）
     + https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker
 
-## Build
+## Usage
 
 コンテナ内のユーザのuidとコンテナを起動するユーザのuidを一緒にするためにuidを`.env`ファイルに出力する
 ```
 $ echo "CONTAINER_UID=$(id -u)" >> .env
 ```
+
+### Run
+
+### CPUの場合
+
+```
+$ docker-compose up -d
+```
+
+### GPUの場合
+
+```
+$ docker-compose -f docker-compose.yml -f docker-compose.gpu.yml up -d
+```
+
++ JupyterLab: `http://<hostname>:18080/lab`
++ MLFlow: `http://<hostname>:15000
+
+### Stop
+
+### CPUの場合
+
+```
+$ docker-compose stop
+```
+
+### GPUの場合
+
+```
+$ docker-compose -f docker-compose.yml -f docker-compose.gpu.yml stop
+```
+
+**`docker-compose down`する場合はコンテナが削除され、永続化されていないデータも削除されるため注意すること**
+
+## Build
 
 プロキシ環境下の場合、`.env`ファイルにプロキシ設定を記述する。（プロキシ設定は環境に応じて変更すること）
 ```
@@ -44,39 +79,6 @@ WARNING: The HTTP_PROXY variable is not set. Defaulting to a blank string.
 WARNING: The HTTPS_PROXY variable is not set. Defaulting to a blank string.
 WARNING: The NO_PROXY variable is not set. Defaulting to a blank string.
 ```
-
-## Run
-
-### CPUの場合
-
-```
-$ docker-compose up -d
-```
-
-### GPUの場合
-
-```
-$ docker-compose -f docker-compose.yml -f docker-compose.gpu.yml up -d
-```
-
-+ JupyterLab: `http://<hostname>:18080/lab`
-+ MLFlow: `http://<hostname>:15000`
-
-## Stop
-
-### CPUの場合
-
-```
-$ docker-compose stop
-```
-
-### GPUの場合
-
-```
-$ docker-compose -f docker-compose.yml -f docker-compose.gpu.yml stop
-```
-
-`docker-compose down`する場合はコンテナが削除され、永続化されていないデータも削除されるため注意すること
 
 ## 補足
 

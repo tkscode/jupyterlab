@@ -13,7 +13,7 @@ services:
         - https_proxy=${HTTPS_PROXY}
         - no_proxy=${NO_PROXY}
         - PYTHON_VERSION=3.9.5
-    image: jupyterlab:cpu-latest
+    image: tkscode/jupyterlab:cpu-1.0.0
     environment:
         - JUPYTER_UID=${CONTAINER_UID}
         - PYTHON_VERSION=3.9.5
@@ -35,7 +35,7 @@ services:
         - http_proxy=${HTTP_PROXY}
         - https_proxy=${HTTPS_PROXY}
         - no_proxy=${NO_PROXY}
-    image: mlflow
+    image: tkscode/mlflow:1.0.0
     environment:
       - MLRUNS_UID=${CONTAINER_UID}
     volumes:

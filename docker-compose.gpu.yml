@@ -5,7 +5,7 @@ services:
     build:
       context: jupyter
       dockerfile: Dockerfile.gpu
-    image: jupyterlab:gpu-latest
+    image: tkscode/jupyterlab:gpu-1.0.0
     deploy:
       resources:
         reservations:
