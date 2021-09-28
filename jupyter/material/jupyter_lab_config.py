@@ -1,4 +1,5 @@
 # Configuration file for lab.
+import os
 
 #------------------------------------------------------------------------------
 # Application(SingletonConfigurable) configuration
@@ -832,7 +833,7 @@ c.ServerApp.ip = '0.0.0.0'
 
 ## DEPRECATED, use root_dir.
 #  Default: ''
-c.ServerApp.notebook_dir = '/opt/jupyter/'
+c.ServerApp.notebook_dir = os.environ.get('JUPYTER_NOTEBOOK_DIR', '/opt/jupyter/')
 
 ## Whether to open in a browser after starting.
 #                          The specific browser used is platform dependent and
@@ -895,7 +896,7 @@ c.ServerApp.port = 8080
 
 ## The directory to use for notebooks and kernels.
 #  Default: ''
-c.ServerApp.root_dir = '/opt/jupyter/'
+c.ServerApp.root_dir = os.environ.get('JUPYTER_ROOT_DIR', '/opt/jupyter/')
 
 ## The session manager class to use.
 #  Default: 'jupyter_server.services.sessions.sessionmanager.SessionManager'

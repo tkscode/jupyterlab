@@ -22,7 +22,8 @@ RUN set -ex \
     && rm -rf ~/.cache/
 
 COPY material/entrypoint.sh /entrypoint.sh
+COPY material/run.sh /run.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["mlflow", "server", "--backend-store-uri", "file:/opt/mlflow", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["/run.sh"]

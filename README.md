@@ -21,6 +21,19 @@ $ echo "CONTAINER_UID=$(id -u)" >> .env
 
 ### Run
 
++ JupyterLabがデフォルトで利用するディレクトリを変更する場合は`docker-compose.yml`の`jupyter.environment`に`JUPYTER_ROOT_DIR`と`JUPYTER_NOTEBOOK_DIR`という名前の環境変数名でディレクトリを指定する。（デフォルトは`/opt/jupyter`）
+    + 設定例
+```
+- JUPYTER_ROOT_DIR="/mnt/fs/jupyter"
+- JUPYTER_NOTEBOOK_DIR="/mnt/fs/jupyter"
+```
+
++ MLFlowがデフォルトで利用するディレクトリを変更する場合は`docker-compose.yml`の`mlflow.environment`に`MLFLOW_STORE_DIR`という名前の環境変数名でディレクトリを指定する。（デフォルトは`/opt/mlflow`）
+    + 設定例
+```
+- MLFLOW_STORE_DIR="/mnt/fs/mlflow"
+```
+
 ### CPUの場合
 
 ```
