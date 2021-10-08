@@ -865,7 +865,7 @@ c.ServerApp.notebook_dir = os.environ.get('JUPYTER_NOTEBOOK_DIR', '/opt/jupyter/
 
 ## The port the server will listen on (env: JUPYTER_PORT).
 #  Default: 0
-c.ServerApp.port = 8080
+c.ServerApp.port = int(os.environ.get("JUPYTER_PORT", "8080"))
 
 ## The number of additional ports to try if the specified port is not available
 #  (env: JUPYTER_PORT_RETRIES).

@@ -47,9 +47,9 @@ RUN set -ex \
     && sed -i -e 's/#font.family:  sans-serif/font.family:  Noto Sans CJK JP/' matplotlibrc
 
 COPY material/entrypoint.sh /entrypoint.sh
-COPY material/start.sh /start.sh
+COPY material/run.sh /run.sh
 COPY material/jupyter_lab_config.py /jupyter_lab_config.py
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["/start.sh"]
+CMD ["/run.sh"]

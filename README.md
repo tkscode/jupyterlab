@@ -21,6 +21,12 @@ $ echo "CONTAINER_UID=$(id -u)" >> .env
 
 ### Run
 
++ JupyterLabをrootユーザで実行する場合は`docker-compose.yml`の`jupyter.environment`に`RUN_AS_ROOT`という名前の環境変数名をセットする。
+    + 設定例（セットする値は何でも良い）
+```
+- RUN_AS_ROOT=1
+```
+
 + JupyterLabがデフォルトで利用するディレクトリを変更する場合は`docker-compose.yml`の`jupyter.environment`に`JUPYTER_ROOT_DIR`と`JUPYTER_NOTEBOOK_DIR`という名前の環境変数名でディレクトリを指定する。（デフォルトは`/opt/jupyter`）
     + 設定例
 ```
