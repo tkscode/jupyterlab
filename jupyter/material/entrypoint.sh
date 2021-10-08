@@ -1,6 +1,7 @@
 #!/bin/bash
 
-if [ -v $RUN_AS_ROOT ]; then
+# RUN_AS_ROOT環境変数があればそのままrootユーザで実行する
+if [ ! -v $RUN_AS_ROOT ]; then
     exec "$@"
 else
     useradd -u ${JUPYTER_UID:-1000} -g root -m -s /bin/bash jupyter

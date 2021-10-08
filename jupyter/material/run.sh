@@ -5,7 +5,7 @@ if [ $? = 0 ]; then
     eval "$(pyenv init --path)"
 fi
 
-if [ -v $RUN_AS_ROOR ]; then
+if [ ! -v $RUN_AS_ROOT ]; then
     root_opt="--allow-root"
 else
     root_opt=""
