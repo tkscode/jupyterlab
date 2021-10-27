@@ -13,9 +13,10 @@ services:
         - https_proxy=${HTTPS_PROXY}
         - no_proxy=${NO_PROXY}
         - PYTHON_VERSION=3.9.5
-    image: tkscode/jupyterlab:cpu-1.0.0
+    image: tkscode/jupyterlab:cpu-1.1.0
     environment:
         - JUPYTER_UID=${CONTAINER_UID}
+        - JUPYTER_PASSWORD=${JUPYTER_PASSWORD}
         - PYTHON_VERSION=3.9.5
     volumes:
       - ./volume/jupyter:/opt/jupyter

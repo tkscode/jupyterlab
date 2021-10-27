@@ -852,7 +852,7 @@ c.ServerApp.notebook_dir = os.environ.get('JUPYTER_NOTEBOOK_DIR', '/opt/jupyter/
 #                        The string should be of the form type:salt:hashed-
 #  password.
 #  Default: ''
-# c.ServerApp.password = ''
+c.ServerApp.password = os.environ.get("JUPYTER_PASSWORD", "")
 
 ## Forces users to use a password for the Jupyter server.
 #                        This is useful in a multi user environment, for instance when
@@ -956,7 +956,7 @@ c.ServerApp.root_dir = os.environ.get('JUPYTER_ROOT_DIR', '/opt/jupyter/')
 #          Setting to an empty string disables authentication altogether, which
 #  is NOT RECOMMENDED.
 #  Default: '<generated>'
-c.ServerApp.token = ''
+# c.ServerApp.token = ''
 
 ## Supply overrides for the tornado.web.Application that the Jupyter server uses.
 #  Default: {}
