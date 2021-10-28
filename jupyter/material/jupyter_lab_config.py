@@ -581,7 +581,7 @@ import os
 #                      This can be set to false to prevent changing password from
 #  the UI/API.
 #  Default: True
-# c.ServerApp.allow_password_change = True
+c.ServerApp.allow_password_change = False
 
 ## Allow requests where the Host header doesn't point to a local server
 #  
