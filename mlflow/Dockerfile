@@ -18,7 +18,7 @@ RUN set -ex \
 
 RUN set -ex \
     && pip install --no-cache-dir -U setuptools pip \
-    && pip install --no-cache-dir mlflow==1.19.0 \
+    && pip install --no-cache-dir mlflow==1.22.0 \
     && rm -rf ~/.cache/
 
 COPY material/entrypoint.sh /entrypoint.sh

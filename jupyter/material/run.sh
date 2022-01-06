@@ -9,6 +9,8 @@ if [ -v RUN_AS_ROOT ]; then
     root_opt="--allow-root"
 else
     root_opt=""
+    mkdir -p $HOME/.config/git
+    cp /.gitignore $HOME/.config/git/ignore
 fi
 
 if [ -n "$JUPYTER_PASSWORD" ]; then
