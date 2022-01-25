@@ -43,12 +43,14 @@ $ echo "CONTAINER_UID=$(id -u)" >> .env
 ### CPUの場合
 
 ```
+$ docker-compose pull
 $ docker-compose up -d
 ```
 
 ### GPUの場合
 
 ```
+$ docker-compose -f docker-compose.yml -f docker-compose.gpu.yml pull
 $ docker-compose -f docker-compose.yml -f docker-compose.gpu.yml up -d
 ```
 
