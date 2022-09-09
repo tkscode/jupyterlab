@@ -15,9 +15,12 @@ services:
         - PYTHON_VERSION=3.9.9
     image: tkscode/jupyterlab:cpu-1.2.0
     environment:
-        - JUPYTER_UID=${CONTAINER_UID}
-        - JUPYTER_PASSWORD=${JUPYTER_PASSWORD}
-        - PYTHON_VERSION=3.9.9
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - NO_PROXY=${NO_PROXY}
+      - JUPYTER_UID=${CONTAINER_UID}
+      - JUPYTER_PASSWORD=${JUPYTER_PASSWORD}
+      - PYTHON_VERSION=3.9.9
     volumes:
       - ./volume/jupyter:/opt/jupyter
       - ./volume/mlflow:/opt/mlflow
@@ -38,6 +41,9 @@ services:
         - no_proxy=${NO_PROXY}
     image: tkscode/mlflow:1.1.0
     environment:
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - NO_PROXY=${NO_PROXY}
       - MLRUNS_UID=${CONTAINER_UID}
     volumes:
       - ./volume/mlflow:/opt/mlflow
