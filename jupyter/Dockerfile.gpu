@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04
+FROM nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
@@ -56,13 +56,13 @@ RUN set -ex \
     && pip install --no-cache-dir -U pip setuptools \
     && rm -rf ~/.cache/
 
-COPY requirements.common.txt requirements.gpu.txt /tmp/
+ARG DEVICE_TYPE
+
+COPY requirements.txt /tmp/
 
 RUN set -ex \
     && eval "$(pyenv init --path)" \
-    && pip install --no-cache-dir \
-        -r /tmp/requirements.common.txt \
-        -r /tmp/requirements.gpu.txt \
+    && pip install --no-cache-dir -r /tmp/requirements.txt \
     && rm -rf ~/.cache/
 
 RUN set -ex \
