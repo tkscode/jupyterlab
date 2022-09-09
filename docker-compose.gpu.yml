@@ -5,7 +5,9 @@ services:
     build:
       context: jupyter
       dockerfile: Dockerfile.gpu
-    image: tkscode/jupyterlab:gpu-1.2.0
+      args:
+        - DEVICE_TYPE=cu113
+    image: tkscode/jupyterlab:gpu-1.3.0
     deploy:
       resources:
         reservations:
