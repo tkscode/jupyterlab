@@ -21,7 +21,7 @@ services:
       - NO_PROXY=${NO_PROXY}
       - JUPYTER_UID=${CONTAINER_UID}
       - JUPYTER_PASSWORD=${JUPYTER_PASSWORD}
-      - PYTHON_VERSION=3.9.14
+      - PYTHON_VERSION=3.9.13
     volumes:
       - ./volume/jupyter:/opt/jupyter
       - ./volume/mlflow:/opt/mlflow
