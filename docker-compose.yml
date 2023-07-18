@@ -13,7 +13,7 @@ services:
         - https_proxy=${HTTPS_PROXY}
         - no_proxy=${NO_PROXY}
         - PYTHON_VERSION=${PYTHON_VERSION:-3.10.12}
-    image: tkscode/jupyterlab:1.4.0-cpu-py${PYTHON_VERSION:-3.10.12}
+    image: tkscode/jupyterlab:1.4.0-py${PYTHON_VERSION:-3.10.12}
     environment:
       - HTTP_PROXY=${HTTP_PROXY}
       - HTTPS_PROXY=${HTTPS_PROXY}

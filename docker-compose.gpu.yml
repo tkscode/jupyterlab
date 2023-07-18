@@ -8,7 +8,7 @@ services:
       args:
         - IMAGE_CUDA_VERSION=${CUDA_VERSION:-11.8.0}
         - IMAGE_UBUNTU_VERSION=${UBUNTU_VERSION:-22.04}
-    image: tkscode/jupyterlab:1.4.0-gpu-py${PYTHON_VERSION:-3.10.12}-cu${CUDA_VERSION:-11.8.0}
+    image: tkscode/jupyterlab:1.4.0-py${PYTHON_VERSION:-3.10.12}-cu${CUDA_VERSION:-11.8.0}
     deploy:
       resources:
         reservations:
