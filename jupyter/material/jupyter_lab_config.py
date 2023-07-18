@@ -653,7 +653,6 @@ c.ServerApp.allow_password_change = False
 
 ## The content manager class to use.
 #  Default: 'jupyter_server.services.contents.largefilemanager.LargeFileManager'
-c.ServerApp.contents_manager_class = 'jupytext.TextFileContentsManager'
 
 ## Extra keyword arguments to pass to `set_secure_cookie`. See tornado's
 #  set_secure_cookie docs for details.
@@ -1012,5 +1011,3 @@ c.ServerApp.root_dir = os.environ.get('JUPYTER_ROOT_DIR', '/opt/jupyter/')
 #          Should be in the form of an HTTP origin: ws[s]://hostname[:port]
 #  Default: ''
 # c.ServerApp.websocket_url = ''
-
-c.ContentsManager.default_jupytext_formats = "ipynb,py"

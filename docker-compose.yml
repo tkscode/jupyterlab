@@ -12,43 +12,18 @@ services:
         - http_proxy=${HTTP_PROXY}
         - https_proxy=${HTTPS_PROXY}
         - no_proxy=${NO_PROXY}
-        - PYTHON_VERSION=3.9.13
-        - DEVICE_TYPE=cpu
-    image: tkscode/jupyterlab:cpu-1.3.0
+        - PYTHON_VERSION=${PYTHON_VERSION:-3.10.12}
+    image: tkscode/jupyterlab:1.4.0-py${PYTHON_VERSION:-3.10.12}
     environment:
       - HTTP_PROXY=${HTTP_PROXY}
       - HTTPS_PROXY=${HTTPS_PROXY}
       - NO_PROXY=${NO_PROXY}
       - JUPYTER_UID=${CONTAINER_UID}
       - JUPYTER_PASSWORD=${JUPYTER_PASSWORD}
-      - PYTHON_VERSION=3.9.13
+      - PYTHON_VERSION=${PYTHON_VERSION:-3.10.12}
     volumes:
       - ./volume/jupyter:/opt/jupyter
-      - ./volume/mlflow:/opt/mlflow
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "18080:8080"
+      - "${JUPYTER_PORT:-8080}:8080"
     stop_signal: SIGINT
-
-  # mlflow:
-  #   build:
-  #     context: mlflow
-  #     args:
-  #       - HTTP_PROXY=${HTTP_PROXY}
-  #       - HTTPS_PROXY=${HTTPS_PROXY}
-  #       - NO_PROXY=${NO_PROXY}
-  #       - http_proxy=${HTTP_PROXY}
-  #       - https_proxy=${HTTPS_PROXY}
-  #       - no_proxy=${NO_PROXY}
-  #   image: tkscode/mlflow:1.1.0
-  #   environment:
-  #     - HTTP_PROXY=${HTTP_PROXY}
-  #     - HTTPS_PROXY=${HTTPS_PROXY}
-  #     - NO_PROXY=${NO_PROXY}
-  #     - MLRUNS_UID=${CONTAINER_UID}
-  #   volumes:
-  #     - ./volume/mlflow:/opt/mlflow
-  #     - /etc/localtime:/etc/localtime:ro
-  #   ports:
-  #     - "15000:5000"
-  #   stop_signal: SIGINT

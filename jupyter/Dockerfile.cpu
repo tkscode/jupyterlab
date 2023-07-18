@@ -1,6 +1,6 @@
 ARG PYTHON_VERSION
 
-FROM python:$PYTHON_VERSION-slim-bullseye
+FROM python:$PYTHON_VERSION-slim
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
@@ -28,8 +28,6 @@ RUN set -ex \
         wget \
     && rm -rf /var/cache/apt
 
-ARG DEVICE_TYPE
-
 COPY requirements.txt /tmp/
 
 RUN set -ex \
@@ -52,10 +50,6 @@ COPY material/entrypoint.sh /entrypoint.sh
 COPY material/run.sh /run.sh
 COPY material/.gitignore /.gitignore
 COPY material/jupyter_lab_config.py /jupyter_lab_config.py
-COPY material/jupyter_utils.py /tmp/jupyter_utils.py
-
-RUN set -ex \
-    && mv /tmp/jupyter_utils.py /usr/local/lib/python${PYTHON_VERSION%.*}/site-packages/
 
 ENTRYPOINT ["/entrypoint.sh"]
 

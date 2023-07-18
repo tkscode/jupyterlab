@@ -1,4 +1,7 @@
-FROM nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04
+ARG IMAGE_CUDA_VERSION
+ARG IMAGE_UBUNTU_VERSION
+
+FROM nvidia/cuda:$IMAGE_CUDA_VERSION-cudnn8-runtime-ubuntu$IMAGE_UBUNTU_VERSION
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
@@ -36,7 +39,7 @@ RUN set -ex \
         llvm \
         make \
         openssh-client \
-        python-openssl \
+        python3-openssl \
         tk-dev \
         wget \
         xz-utils \
@@ -55,8 +58,6 @@ RUN set -ex \
     && pyenv global $PYTHON_VERSION \
     && pip install --no-cache-dir -U pip setuptools \
     && rm -rf ~/.cache/
-
-ARG DEVICE_TYPE
 
 COPY requirements.txt /tmp/
 
@@ -81,10 +82,6 @@ COPY material/entrypoint.sh /entrypoint.sh
 COPY material/run.sh /run.sh
 COPY material/.gitignore /.gitignore
 COPY material/jupyter_lab_config.py /jupyter_lab_config.py
-COPY material/jupyter_utils.py /tmp/jupyter_utils.py
-
-RUN set -ex \
-    && mv /tmp/jupyter_utils.py $PYENV_ROOT/versions/$PYTHON_VERSION/lib/python${PYTHON_VERSION%.*}/site-packages/
 
 ENTRYPOINT ["/entrypoint.sh"]
 
