@@ -84,12 +84,10 @@ WARNING: The NO_PROXY variable is not set. Defaulting to a blank string.
 
 ## 補足
 
-+ Jupyter LabのコンテナにインストールされるPythonライブラリやそのバージョンは[requirements.txt](./jupyter/requirements.txt)を参照してください
-    + **バージョンによって挙動が変化するため、`transformers`と`pytorch-lightning`は明示的にインストールしていません**
-+ Jupyter Lab内のNotebookファイルは`./volume/jupyter/`以下に配置されます
-    + デフォルトでjupytextが有効になっているため、Notebookファイルの保存と同時に`.py`ファイルが生成されます
-<!-- + MLFlowのartifactは`./volume/mlflow/`以下にRun IDごとに配置されます -->
-+ JupyterLabをrootユーザで実行する場合は`docker-compose.yml`の`jupyter.environment`に`RUN_AS_ROOT`という名前の環境変数名をセットする。
++ JupyterLabにアクセスするポートを変えたい場合は`.env`ファイルに`JUPYTER_PORT`変数でポート番号を指定してください。
+    ```
+    $ echo "JUPYTER_PORT=18080" >> .env
+    ```
     + 設定例（セットする値は何でも良い）
         ```
         - RUN_AS_ROOT=1

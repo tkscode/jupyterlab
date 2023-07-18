@@ -26,5 +26,5 @@ services:
       - ./volume/jupyter:/opt/jupyter
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "18080:8080"
+      - "${JUPYTER_PORT:-8080}:8080"
     stop_signal: SIGINT
