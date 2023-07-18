@@ -2,14 +2,14 @@
 
 自然言語処理のためのディープラーニング用JupyterLabコンテナを作るリポジトリです。
 
-## Pre-require
+## 前提
 
 + Docker version 24.X
     + https://docs.docker.com/engine/install/
 + nvidia-container-toolkit（GPUを利用する場合）
     + https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#docker
 
-## Usage
+## 利用方法
 
 本リポジトリをcloneしてください。
 ```
@@ -22,7 +22,7 @@ $ cd jupyterlab/
 $ echo "CONTAINER_UID=$(id -u)" >> .env
 ```
 
-### Run
+### コンテナの起動
 
 ### CPUの場合
 
@@ -38,10 +38,10 @@ $ docker compose -f docker-compose.yml -f docker-compose.gpu.yml pull
 $ docker compose -f docker-compose.yml -f docker-compose.gpu.yml up -d
 ```
 
-+ JupyterLab: `http://<hostname>:8080/lab`
-    + JupyterLabにアクセスした際に入力するパスワード（トークン）は`docker-compose logs jupyter`でコンテナのログを表示し、ログ中にあるトークン（`http://127.0.0.1:8080/lab?token=<トークン>`の部分）を利用する
++ JupyterLabは`http://<hostname>:8080/lab`になります。
+    + JupyterLabにアクセスした際に入力するパスワード（トークン）は`docker compose logs`でコンテナのログを表示し、ログ中にあるトークン（`http://127.0.0.1:8080/lab?token=<トークン>`の部分）を利用してください。
 
-### Stop
+### コンテナの停止
 
 ### CPUの場合
 
@@ -55,9 +55,7 @@ $ docker compose stop
 $ docker compose -f docker-compose.yml -f docker-compose.gpu.yml stop
 ```
 
-**`docker-compose down`する場合はコンテナが削除され、永続化されていないデータやノートブック上でインストールしたライブラリも削除されるため注意すること**
-
-## Build
+## コンテナイメージのビルド
 
 プロキシ環境下の場合、`.env`ファイルにプロキシ設定を記述してください。
 ```
@@ -78,7 +76,7 @@ $ docker compose build
 $ docker compose -f docker-compose.yml -f docker-compose.gpu.yml build
 ```
 
-プロキシ設定を行わない場合、以下のような警告メッセージが表示されるが無視して問題ありません。
+プロキシ設定を行わない場合、以下のような警告メッセージが表示されますが無視して問題ありません。
 ```
 WARNING: The HTTP_PROXY variable is not set. Defaulting to a blank string.
 WARNING: The HTTPS_PROXY variable is not set. Defaulting to a blank string.
@@ -110,7 +108,7 @@ WARNING: The NO_PROXY variable is not set. Defaulting to a blank string.
     $ echo "JUPYTER_PORT=18080" >> .env
     ```
 + JupyterLabをrootユーザで実行する場合は`docker-compose.yml`の`jupyter.environment`に`RUN_AS_ROOT`という名前の環境変数名をセットしてください。
-    + 設定例（セットする値は何でも良い）
+    + 設定例
         ```
         - RUN_AS_ROOT=1
         ```
