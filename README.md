@@ -100,11 +100,6 @@ WARNING: The NO_PROXY variable is not set. Defaulting to a blank string.
         - JUPYTER_ROOT_DIR="/mnt/fs/jupyter"
         - JUPYTER_NOTEBOOK_DIR="/mnt/fs/jupyter"
         ```
-<!-- + MLFlowがデフォルトで利用するディレクトリを変更する場合は`docker-compose.yml`の`mlflow.environment`に`MLFLOW_STORE_DIR`という名前の環境変数名でディレクトリを指定する。（デフォルトは`/opt/mlflow`）
-    + 設定例
-        ```
-        - MLFLOW_STORE_DIR="/mnt/fs/mlflow"
-        ``` -->
 
 ## 免責事項
 

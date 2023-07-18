@@ -24,31 +24,7 @@ services:
       - PYTHON_VERSION=3.9.13
     volumes:
       - ./volume/jupyter:/opt/jupyter
-      - ./volume/mlflow:/opt/mlflow
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "18080:8080"
     stop_signal: SIGINT
-
-  # mlflow:
-  #   build:
-  #     context: mlflow
-  #     args:
-  #       - HTTP_PROXY=${HTTP_PROXY}
-  #       - HTTPS_PROXY=${HTTPS_PROXY}
-  #       - NO_PROXY=${NO_PROXY}
-  #       - http_proxy=${HTTP_PROXY}
-  #       - https_proxy=${HTTPS_PROXY}
-  #       - no_proxy=${NO_PROXY}
-  #   image: tkscode/mlflow:1.1.0
-  #   environment:
-  #     - HTTP_PROXY=${HTTP_PROXY}
-  #     - HTTPS_PROXY=${HTTPS_PROXY}
-  #     - NO_PROXY=${NO_PROXY}
-  #     - MLRUNS_UID=${CONTAINER_UID}
-  #   volumes:
-  #     - ./volume/mlflow:/opt/mlflow
-  #     - /etc/localtime:/etc/localtime:ro
-  #   ports:
-  #     - "15000:5000"
-  #   stop_signal: SIGINT
